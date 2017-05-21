@@ -2,7 +2,6 @@ package netty;
 
 import exception.NullParamsException;
 import handler.AcceptorHandler;
-import handler.Handler;
 import handler.ProtocolDecoder;
 import handler.ProtocolEncoder;
 import io.netty.bootstrap.ServerBootstrap;
@@ -23,7 +22,7 @@ public class NettyConfigImpl implements NettyConfig {
     private final ServerBootstrap bootstrap;
     private EventLoopGroup parentGroup;
     private EventLoopGroup childGroup;
-    private Class channelClass;
+    private Class<? extends ServerChannel> channelClass;
 
     public NettyConfigImpl() {
         bootstrap = new ServerBootstrap();
@@ -50,12 +49,11 @@ public class NettyConfigImpl implements NettyConfig {
     }
 
     @Override
-    public void setChannel(Class channelClass) {
+    public void setChannel(Class<? extends ServerChannel> channelClass) {
         this.channelClass = channelClass;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void setHandler() {
         validate();
         bootstrap.group(parentGroup, childGroup);

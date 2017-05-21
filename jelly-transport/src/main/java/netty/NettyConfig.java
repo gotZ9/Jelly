@@ -1,6 +1,6 @@
 package netty;
 
-import handler.Handler;
+import io.netty.channel.ServerChannel;
 
 /**
  * Netty配置接口.
@@ -38,7 +38,7 @@ public interface NettyConfig {
      *
      * @param channelClass channel类对象
      */
-    void setChannel(Class channelClass);
+    void setChannel(Class<? extends ServerChannel> channelClass);
 
     /**
      * 设置handler
